@@ -1,7 +1,7 @@
 import React from "react";
 
 const Item =({Data})=>{
-  return(
+    return(
     <>
     <img alt="Imagen al azar"  src={Data.pictureurl} />
     <div>
