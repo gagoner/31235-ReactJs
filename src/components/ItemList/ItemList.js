@@ -1,31 +1,10 @@
-import  ItemCount from '../ItemCount/ItemCount';
-import ItemDetailContainer from "../ItemDetailContainer/ItemDetailContainer";
+import Item from '../Item/Item';
 
-const ItemList =({Data})=>{
-    return(
-    <>
-    <div>
-        <img src={Data.pictureurl} alt="thumbnail" />
-            <div>
-                {Data.title}
-            </div>
-            <p>
-                {Data.description}
-            </p>
-                <ItemDetailContainer id={Data.id}/>
-            <div className="mb-2">
-                <div className="pt-2 text-muted">Precio: {Data.price}
-                    <div>
-                        <p className="card-header text-center">
-                            Cantidad disponible: {Data.stock}.
-                            <ItemCount  key={Data.id} stock={Data.stock}/>
-                        </p>
-                    </div>
-                </div>
-            </div>
-    </div>
-    </>
+const ItemList = ({items}) => {
+    
+    return (
+        <>{ items.map((Data, index) => <Item item={Data} key={index}/>) }</>
     )
-};
+}
 
-export default ItemList;
+export default ItemList

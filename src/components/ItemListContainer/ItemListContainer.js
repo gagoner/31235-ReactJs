@@ -1,35 +1,48 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import ItemList from '../ItemList/ItemList';
 import Data from '../Data/Data.json';
 
-function ItemListContainer(props) {
-  
-  const[items,setItems]=useState([])
-  const call = new Promise((resolve,reject)=>{
-    setTimeout(()=>{
-      resolve(Data)
-    },2000)
-  })
-  
-  call.then(response=> {
-    setItems(response)
-  })
 
-  return (
-      <div className='d-flex justify-content-center pt-5'>
-        <div className='card w-50'>
-          <div className='card-body text-center'>
-            <h1 className="card-header text-center"> {props.title}</h1>
-            <div className="p-3 mb-2 bg-dark text-white">
-              {
-                items &&  items.map(item=>
-                  <ItemList key={Data.id} Data={item} />
-              )}
+const ItemListContainer = ({ title }) => {
+
+    const [items, setItems] = useState([])
+
+    const { category } = useParams()
+
+    const getItems = () => {
+        return new Promise((res, rej) => {
+            setTimeout(() => {
+                res(Data)
+            }, 2000)
+        })
+    };
+
+    useEffect(() => {
+        getItems()
+            .then((res) => {
+                category === undefined ? 
+                    setItems(res) : 
+                    setItems(res.filter(el => el.category === category));
+            })
+            .catch((rej) => {
+                console.log(rej)
+            })
+
+        return(() =>{
+            setItems([])
+        })
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+}, [category])
+
+    return (
+        <section className='card w-50'>
+            <h2 className='card-header text-center'>{title}</h2>
+            <div className="card-body text-center">
+                <ItemList items={items} />
             </div>
-          </div>
-        </div>
-      </div>
-  );
-};
+        </section>
+    );
+}
 
-export default ItemListContainer;
+export default ItemListContainer

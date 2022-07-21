@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 
-function ItemCount({ stock }) {
-    const [count, setCount] = useState(0);
+const ItemCount = ({ stock, initial }) => {
+
+    const [count, setCount] = useState(initial);
 
     let incrementCount = () => {
         if (count < stock) {
@@ -17,7 +18,7 @@ function ItemCount({ stock }) {
 
     return (  
     <>
-        <h2 className='card-text'>{count}</h2>
+        <h2 className='card-text text-start'>Cantidad: {count}</h2>
         <div class="buttons">
             <button  className='btn btn-light mx-2' onClick={decrementCount}>-</button>
             <button  className='btn btn-light mx-2' onClick={incrementCount}>+</button>
