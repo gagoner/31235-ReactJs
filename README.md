@@ -13,4 +13,4 @@ En esta oportunidad se hace pre-entrega del Proyecto Final. Esta entrega consist
 
 A continuación, se deja un enlace con el gif que muestra la funcionalidad de la App.
 
-<img src="https://github.dev/gagoner/31235-ReactJs/blob/af5b0871b76db8356e86b9af4c57de2320d51d6c/Pre-entrega%20de%20Proyecto%20Final.gif">
+<img src="Pre-entrega%20de%20Proyecto%20Final.gif">
