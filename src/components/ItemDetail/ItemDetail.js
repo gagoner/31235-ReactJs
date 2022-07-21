@@ -13,7 +13,11 @@ const ItemDetail =({prop})=>{
             <div class="row g-0">
                 <div class="col-md-4">
                     <img className="img-fluid rounded-start img-thumbnail" alt={`Producto ${title}`} src={`${pictureurl}`}></img>
-                    <p className='text-center'><ItemCount stock={stock} initial={1} /></p>
+                    <p className='text-center'>
+                        <ItemCount stock={stock} initial={1} />
+                        <h6 className="text-secondary">Stock: {stock}</h6>
+                    </p>
+                    
                 </div>
                 <div class="col-md-8"><Link to={"/"} className="p-3 mb-2 bg-light text-secondary float-end text-decoration-none">X</Link> 
                     <div class="card-body">
