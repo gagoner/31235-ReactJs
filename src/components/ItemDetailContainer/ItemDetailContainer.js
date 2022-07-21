@@ -1,26 +1,29 @@
 import ItemDetail from '../ItemDetail/ItemDetail';
-import React, {useState,useEffect} from 'react';
+import Data from '../Data/Data.json';
 
-const ItemDetailContainer = () => {
-    const[productos,setProductos]=useState()
-    useEffect(()=>{
+function ItemDetailContainer(props) {
+
+    const[items,setItems]= props.id
+    const call = new Promise((resolve,reject)=>{
         setTimeout(()=>{
-            fetch("https://api.mercadolibre.com/sites/MLA/search?q=bandera&limit=3#json").then(response=>response.json()).then(data=>setProductos(data.results));
+            resolve(Data)
         },2000)
-    },[]);
+    })
     
+    call.then(response=> {
+        setItems(response)
+    })
+
     return (
-        <div className='d-flex justify-content-center pt-5'>
-            <div className='card w-50'>
-                <div className='card-body text-center'>
-                    <h2 className="card-header text-center">Productos</h2>
-                    <div className="p-3 mb-2 bg-dark text-white">
-                        {
-                        productos &&  productos.map(item=>
-                        <ItemDetail key={item.id} Data={item} />
-                        )}
-                    </div>
-                </div>
+        <div className="mb-2">
+            <p>
+                <button type="button" className="btn btn-link" data-bs-toggle="collapse" data-bs-target= {"#" + props.id} aria-expanded="false" aria-controls={props.id}>Más detalles:</button>
+            </p>
+            <div className="collapse" id= {'"' + props.id + '"'}>
+            {
+                items &&  items.map(item=>
+                <ItemDetail key={Data.id} Data={item} />
+            )}
             </div>
         </div>
     )

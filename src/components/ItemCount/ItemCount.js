@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-function ItemCount({ name, stock }) {
+function ItemCount({ stock }) {
     const [count, setCount] = useState(0);
 
     let incrementCount = () => {
