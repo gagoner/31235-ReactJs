@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import ItemCount from '../ItemCount/ItemCount';
+import CartContext from '../../context/cartContext';
 
 const ItemDetail =({prop})=>{
 
-    const { title, price, stock, pictureurl, category, description } = prop;
+    const { title, price, stock, pictureurl, category, description, id } = prop;
+    const { addProductToCart } = useContext(CartContext)
     const [cantidad, setCantidad] = useState(1);
     const [mostrarBoton, setMostrarBoton] = useState(false);
 
@@ -14,6 +16,7 @@ const ItemDetail =({prop})=>{
                 elemento.innerHTML = [`<div class="alert alert-success alert-dismissible fade show" role="alert">`,`<div>Se agregaron ${cantidad} productos al carrito</div>`,'<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>','</div>'].join('');
                 alertPlaceholder.append(elemento);
                 setMostrarBoton(true);
+                addProductToCart({title, price, pictureurl, cantidad, id})
     }
 
     return (
