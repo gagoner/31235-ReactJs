@@ -11,10 +11,6 @@ const ItemDetail =({prop})=>{
     const [mostrarBoton, setMostrarBoton] = useState(false);
 
     const onAdd = () => {
-                const alertPlaceholder = document.getElementById("alerta");
-                const elemento = document.createElement('div');
-                elemento.innerHTML = [`<div class="alert alert-success alert-dismissible fade show" role="alert">`,`<div>Se agregaron ${cantidad} productos al carrito</div>`,'<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>','</div>'].join('');
-                alertPlaceholder.append(elemento);
                 setMostrarBoton(true);
                 addProductToCart({title, price, pictureurl, cantidad, id})
     }
