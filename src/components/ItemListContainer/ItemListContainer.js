@@ -6,7 +6,9 @@ import Data from '../Data/Data.json';
 
 const ItemListContainer = ({ title }) => {
 
-    const [items, setItems] = useState([])
+    const [items, setItems] = useState([]);
+
+    const [loading, setLoading] = useState(true);
 
     const { category } = useParams()
 
@@ -21,6 +23,7 @@ const ItemListContainer = ({ title }) => {
     useEffect(() => {
         getItems()
             .then((res) => {
+                setLoading(false)
                 category === undefined ? 
                     setItems(res) : 
                     setItems(res.filter(el => el.category === category));
@@ -30,6 +33,7 @@ const ItemListContainer = ({ title }) => {
             })
 
         return(() =>{
+            setLoading(true)
             setItems([])
         })
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -39,7 +43,7 @@ const ItemListContainer = ({ title }) => {
         <section className='card w-50'>
             <h2 className='card-header text-center'>{title}</h2>
             <div className="card-body text-center">
-                <ItemList items={items} />
+            {loading ? "Cargando" : <ItemList items={items} />}
             </div>
         </section>
     );
