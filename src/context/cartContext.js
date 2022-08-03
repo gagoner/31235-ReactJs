@@ -14,7 +14,7 @@ const CartProvider = ({ children }) => {
 
         if (!isInCart) {
             setCartListItems(cartListItems => [...cartListItems, product]);
-            setTotalPrice(totalPrice + product.price * product.quantity);
+            setTotalPrice(totalPrice + product.price * product.cantidad);
             const alertPlaceholder = document.getElementById("alerta");
             const elemento = document.createElement('div');
             elemento.innerHTML = [`<div class="alert alert-success alert-dismissible fade show" role="alert">`,`<div>Se agregaron ${product.cantidad} productos al carrito</div>`,'<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>','</div>'].join('');

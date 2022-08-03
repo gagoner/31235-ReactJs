@@ -26,24 +26,24 @@ import Button from 'react-bootstrap/Button';
 
     const KeepBuying = () => {
         return (
-            <div className=''>
+            <Row className=''>
                 <h4>No hay productos en el carrito</h4>
                     <Link to="/">
                         <Button className='float-end text-decoration-none' variant="info">Seguir comprando</Button>
                     </Link>
-            </div>
+            </Row>
         )
     }
 
     return (
         <>
-            <div className='cart-container'>
+            <div className=''>
                 {cartListItems.length === 0 ?
                     <KeepBuying />
                     :
                     <>
-                        <h2>Carrito</h2>
-                        <Row className='title-container'>
+                        <p className="h1 text-center mb-5">Carrito</p>
+                        <Row className=''>
                             <Col className='text-center align-middle'>Producto</Col>
                             <Col className='text-center align-middle'>Nombre</Col>
                             <Col className='text-center align-middle'>Precio Unitario</Col>
@@ -70,18 +70,18 @@ import Button from 'react-bootstrap/Button';
                         </Row>
                     )
                 })}
-            </div>
             {totalPrice > 0 &&
-                <div className='check-out'>
-                    <p className='check-out__total-price'>El total de tu compra es ${totalPrice}</p>
-                    <div className='check-out__btn'>
-                        <Link to="/check-out">
-                            <button variant="contained">Finalizar compra</button>
+                <Row className=''>
+                    <p className=''>El total de tu compra es ${totalPrice}</p>
+                    <div className=''>
+                        <Link to="/">
+                            <Button>Finalizar compra</Button>
                         </Link>
-                        <button variant="outlined" onClick={deleteAll}>Eliminar todo</button>
+                        <Button className='float-end text-decoration-none' variant="danger" onClick={deleteAll}>Eliminar todo</Button>
                     </div>
-                </div>
+                </Row>
             }
+            </div>
         </>
     )
 }
