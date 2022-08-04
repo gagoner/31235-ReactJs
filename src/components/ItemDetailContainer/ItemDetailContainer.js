@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams , useNavigate } from 'react-router-dom';
+import { getFirestore, doc, getDoc } from "firebase/firestore";
 import ItemDetail from '../ItemDetail/ItemDetail';
-import Data from '../Data/Data.json';
 
 const ItemDetailContainer = () => {
 
@@ -10,13 +10,10 @@ const ItemDetailContainer = () => {
 
     const { id } = useParams()
     
-    const getItem = () => {
-        return new Promise((res, rej) => {
-            setTimeout(() => {
-                res(productFilter)
-            }, 2000)
-        })
-    };
+    const querydb = getFirestore();
+    const queryDoc = doc(querydb, 'products', '2moRkvusi5kdWYm6QzOs');
+    getDoc(queryDoc)
+    .then(res => console.log(res))
 
     useEffect(() => {
 
