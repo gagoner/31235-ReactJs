@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams , useNavigate } from 'react-router-dom';
 import { getFirestore, doc, getDoc } from "firebase/firestore";
 import ItemDetail from '../ItemDetail/ItemDetail';
+import Spinner from 'react-bootstrap/Spinner';
 
 const ItemDetailContainer = () => {
 
@@ -9,37 +10,36 @@ const ItemDetailContainer = () => {
     const navigate = useNavigate()
 
     const { id } = useParams()
+
+    const db = getFirestore();
     
-    const querydb = getFirestore();
-    const queryDoc = doc(querydb, 'products', '2moRkvusi5kdWYm6QzOs');
-    getDoc(queryDoc)
-    .then(res => console.log(res))
+    const productFilter = async () => {
+        const docRef = doc(db, "products", "2moRkvusi5kdWYm6QzOs")
+        const docSnapshop = await getDoc(docRef)
+        let product = docSnapshop.data()
+        product.id = parseInt(docSnapshop.id)
+
+
+        if (product === undefined) {
+            navigate('/*')
+        } else {
+            setItem(product)
+        }
+    }
 
     useEffect(() => {
 
-        getItem()
-            .then((res) => {
-                if(res === undefined){
-                    navigate('/*')
-                }else {
-                    setItem(res)
-                }
-            })
-            .catch((rej) => {
-                console.log(rej)
-            })
+        productFilter()
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
-
-    const productFilter = Data.find( (product) => {
-        return product.id === parseInt(id)
-    })
-
     return (
         <>
-            {Object.keys(item).length === 0 ? "Cargando producto" : <ItemDetail prop={item} />}
+            {Object.keys(item).length === 0 ?
+                <Spinner animation="border" role="status">
+                    <span className="visually-hidden">Cargando...</span>
+                </Spinner> : <ItemDetail prop={item} />}
         </>
     )
 }
