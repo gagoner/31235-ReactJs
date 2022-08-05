@@ -18,9 +18,8 @@ const ItemListContainer = ({ title }) => {
     const getItems = async () => {
 
         const productSnapshot = await getDocs(collection(db, "products"));
-        const productList = productSnapshot.docs.map(doc => {
-            let product = doc.data()
-            product.id = parseInt(doc.id)
+        const productList = productSnapshot.docs.map(item => {
+            let product = {id: item.id, ...item.data()}
             return product
         });
 
@@ -44,7 +43,7 @@ const ItemListContainer = ({ title }) => {
 
     return (
         <section className='card w-50'>
-            <h2 className='card-header text-center'>{title}</h2>
+            <h2 className='card-header text-center'>{title}{category}</h2>
             <div className="card-body text-center">
             {loading ? 
                 <Spinner animation="border" role="status">

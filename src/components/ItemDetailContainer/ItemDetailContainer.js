@@ -6,7 +6,7 @@ import Spinner from 'react-bootstrap/Spinner';
 
 const ItemDetailContainer = () => {
 
-    const [item, setItem] = useState({})
+    const [items, setItems] = useState({})
     const navigate = useNavigate()
 
     const { id } = useParams()
@@ -14,7 +14,7 @@ const ItemDetailContainer = () => {
     const db = getFirestore();
     
     const productFilter = async () => {
-        const docRef = doc(db, "products", "2moRkvusi5kdWYm6QzOs")
+        const docRef = doc(db, "products", id)
         const docSnapshop = await getDoc(docRef)
         let product = docSnapshop.data()
         product.id = parseInt(docSnapshop.id)
@@ -23,7 +23,7 @@ const ItemDetailContainer = () => {
         if (product === undefined) {
             navigate('/*')
         } else {
-            setItem(product)
+            setItems(product)
         }
     }
 
@@ -32,14 +32,14 @@ const ItemDetailContainer = () => {
         productFilter()
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+    }, [id])
 
     return (
         <>
-            {Object.keys(item).length === 0 ?
+            {Object.keys(items).length === 0 ?
                 <Spinner animation="border" role="status">
                     <span className="visually-hidden">Cargando...</span>
-                </Spinner> : <ItemDetail prop={item} />}
+                </Spinner> : <ItemDetail prop={items} />}
         </>
     )
 }
