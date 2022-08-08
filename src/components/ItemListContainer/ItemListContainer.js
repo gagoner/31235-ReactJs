@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { getFirestore, collection, getDocs } from "firebase/firestore";
+import { getFirestore, collection, getDocs } from "firebase/firestore"; // , query, where
 import ItemList from '../ItemList/ItemList';
+import Title from "../Title/Title";
 import Spinner from 'react-bootstrap/Spinner';
 
-
-const ItemListContainer = ({ title }) => {
+const ItemListContainer = ({ texto }) => {
 
     const [items, setItems] = useState([]);
 
     const [loading, setLoading] = useState(true);
 
-    const { category } = useParams()
+    const { categoriaId } = useParams();
 
     const db = getFirestore();
 
@@ -24,9 +24,9 @@ const ItemListContainer = ({ title }) => {
         });
 
         setLoading(false)
-        category === undefined ?
+        categoriaId === undefined ?
             setItems(productList) :
-            setItems(productList.filter(el => el.category === category));
+            setItems(productList.filter(el => el.category === categoriaId));
 
     };
 
@@ -39,19 +39,19 @@ const ItemListContainer = ({ title }) => {
             setItems([])
         })
         // eslint-disable-next-line react-hooks/exhaustive-deps
-}, [category])
+}, [categoriaId])
 
-    return (
-        <section className='card w-50'>
-            <h2 className='card-header text-center'>{title}{category}</h2>
+	return (
+		<>
+            <Title greeting={texto} />
             <div className="card-body text-center">
             {loading ? 
                 <Spinner animation="border" role="status">
                     <span className="visually-hidden">Cargando...</span>
-                </Spinner> : <ItemList items={items} />}
+                </Spinner> : <ItemList item={items} />}
             </div>
-        </section>
-    );
-}
+		</>
+	);
+};
 
 export default ItemListContainer

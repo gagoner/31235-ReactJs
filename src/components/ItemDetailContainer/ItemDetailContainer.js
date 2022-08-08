@@ -1,47 +1,44 @@
-import { useState, useEffect } from 'react';
-import { useParams , useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { useParams, useNavigate } from 'react-router-dom';
 import { getFirestore, doc, getDoc } from "firebase/firestore";
 import ItemDetail from '../ItemDetail/ItemDetail';
 import Spinner from 'react-bootstrap/Spinner';
 
 const ItemDetailContainer = () => {
-
-    const [items, setItems] = useState({})
-    const navigate = useNavigate()
-
-    const { id } = useParams()
+	const [data, setData] = useState({});
+    const navigate = useNavigate();
+	const { detalleId } = useParams();
 
     const db = getFirestore();
-    
-    const productFilter = async () => {
-        const docRef = doc(db, "products", id)
-        const docSnapshop = await getDoc(docRef)
-        let product = docSnapshop.data()
-        product.id = parseInt(docSnapshop.id)
 
+    const productFilter = async () => {
+        
+        const docRef = doc(db, "products", detalleId);
+        const docSnapshop = await getDoc(docRef);
+        console.log("id3 " + docSnapshop.id);
+        let product = {id: docSnapshop.id, ...docSnapshop.data()};
 
         if (product === undefined) {
-            navigate('/*')
+            navigate('/*');
         } else {
-            setItems(product)
+            setData(product);
         }
     }
 
-    useEffect(() => {
-
-        productFilter()
+	useEffect(() => {
+        productFilter();
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [id])
+	}, [detalleId]);
 
-    return (
+	return (
         <>
-            {Object.keys(items).length === 0 ?
-                <Spinner animation="border" role="status">
-                    <span className="visually-hidden">Cargando...</span>
-                </Spinner> : <ItemDetail prop={items} />}
+        {Object.keys(data).length === 0 ?
+            <Spinner animation="border" role="status">
+                <span className="visually-hidden">Cargando...</span>
+            </Spinner> : <ItemDetail prop={data} />}
         </>
     )
-}
+};
 
 export default ItemDetailContainer
