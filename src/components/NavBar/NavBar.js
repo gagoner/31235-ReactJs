@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react';
 import { getFirestore, collection, getDocs } from 'firebase/firestore';
 import logo from './logo.png';
 import CartWidget from '../CartWidget/CartWidget';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
 
 const NavBar = () => {
 
@@ -30,44 +32,34 @@ const NavBar = () => {
     }, [])
 
 	return (
-		<nav className="navbar navbar-expand-lg navbar-light bg-light">
-			<div className="container-fluid">
-				<NavLink className="navbar-nav" to="/">
-					<img src={logo} alt="Logo gagoner, un apret&oacute;n de manos" height="13" />
-				</NavLink>
-				<button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-					<span className="navbar-toggler-icon"></span>
-				</button>
-			</div>
-			<div className="collapse navbar-collapse" id="navbarSupportedContent">
-				<ul className="navbar-nav ms-auto mb-2 mb-lg-0">
-					<li className="nav-item">
-						<NavLink className="nav-link" to="/">
+	<Navbar collapseOnSelect expand="sm" bg="light" variant="light">
+		<NavLink to="/">
+				<img src={logo} alt="Logo gagoner, un apret&oacute;n de manos" height="13" />
+		</NavLink>
+		<Navbar.Toggle aria-controls="responsive-navbar-nav" />
+			<Navbar.Collapse id="responsive-navbar-nav">
+				<Nav className="me-auto">
+				</Nav>
+				<Nav>
+					<NavLink className="nav-link" to="/">
 						Inicio
-						</NavLink>
-					</li>
+					</NavLink>
 					{categories.map((cat, i) => {
 						return (
-						<li className="nav-item" key={i}>
-							<NavLink to={`/categoria/${cat}`} className="nav-link">
+						<NavLink to={`/categoria/${cat}`} className="nav-link" key={i}>
 							{cat}
-							</NavLink>
-						</li>
-	                    )
- 	               })}
-					<li className="nav-item">
-						<NavLink className="nav-link" to="/">
+						</NavLink>
+						)
+					})}
+					<NavLink className="nav-link" to="/">
 						Contacto
-						</NavLink>
-					</li>
-					<li className="nav-item">
-						<NavLink className="nav-link" to="cart">
-							<CartWidget />
-						</NavLink>
-					</li>
-				</ul>
-			</div>
-		</nav>
+					</NavLink>
+					<NavLink className="nav-link" to="cart">
+						<CartWidget />
+					</NavLink>
+				</Nav>
+			</Navbar.Collapse>
+		</Navbar>
 	);
 };
 

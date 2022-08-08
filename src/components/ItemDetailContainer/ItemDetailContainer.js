@@ -3,6 +3,8 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { getFirestore, doc, getDoc } from "firebase/firestore";
 import ItemDetail from '../ItemDetail/ItemDetail';
 import Spinner from 'react-bootstrap/Spinner';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
 
 const ItemDetailContainer = () => {
 	const [data, setData] = useState({});
@@ -15,8 +17,9 @@ const ItemDetailContainer = () => {
         
         const docRef = doc(db, "products", detalleId);
         const docSnapshop = await getDoc(docRef);
-        console.log("id3 " + docSnapshop.id);
         let product = {id: docSnapshop.id, ...docSnapshop.data()};
+        console.log("product");
+        console.log(product);
 
         if (product === undefined) {
             navigate('/*');
@@ -33,10 +36,14 @@ const ItemDetailContainer = () => {
 
 	return (
         <>
-        {Object.keys(data).length === 0 ?
-            <Spinner animation="border" role="status">
-                <span className="visually-hidden">Cargando...</span>
-            </Spinner> : <ItemDetail prop={data} />}
+        <Container fluid="true">
+            <Row>
+                {Object.keys(data).length === 0 ?
+                <Spinner animation="border" role="status" className="mx-auto my-auto">
+                    <span className="visually-hidden">Cargando...</span>
+                </Spinner> : <ItemDetail data={data} />}
+            </Row>
+        </Container>
         </>
     )
 };
