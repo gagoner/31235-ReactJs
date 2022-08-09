@@ -15,7 +15,7 @@ export const ItemDetail = ({ data }) => {
 	};
 
 	return (
-		<Card style={{ width: '80%' }} className="mx-auto mt-2" >
+		<Card style={{ width: '50%' }} className="mx-auto mt-2" >
 			<Card.Header className="mx-0">
 				Detalle del producto
 			</Card.Header>
@@ -24,7 +24,7 @@ export const ItemDetail = ({ data }) => {
 					<Col>
 						<Card.Title>{data.title}</Card.Title>
 							<Card.Subtitle className="mb-2 text-muted">Categoría: {data.category}   |   Stock: {data.stock}</Card.Subtitle>
-						<Card.Img variant="top" alt={`Imagen del Producto ${data.title}`} src={data.pictureurl} className="rounded"style={{ width: '250px' }}/>
+						<Card.Img variant="top" alt={`Imagen del Producto ${data.title}`} src={data.pictureurl} className="rounded" style={{ width: '80%' }}/>
 						<Card.Text>
 							Precio: ${data.price}
 						</Card.Text>
@@ -35,7 +35,7 @@ export const ItemDetail = ({ data }) => {
 						)}
 					</Col>
 					<Col>
-						<Card.Text>{data.description}</Card.Text>
+						<Card.Text className="mt-2">{data.description}</Card.Text>
 					</Col>
 				</Row>
 			</Card.Body>
