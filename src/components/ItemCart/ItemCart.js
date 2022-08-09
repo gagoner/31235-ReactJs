@@ -1,17 +1,17 @@
 import React from 'react';
 import { useCartContext } from '../../context/cartContext';
+import Button from 'react-bootstrap/Button';
 
 const ItemCart = ({ product }) => {
     const { removeProduct } = useCartContext();
     return (
         <>
-            <td>{product.id}</td>
-            <td><img src={product.pictureurl} alt={product.title}  style={{ width: '100px' }}/></td>
-            <td>{product.title}</td>
-            <td>{product.quantity}</td>
-            <td>{product.price}</td>
-            <td>${product.quantity * product.price}</td>
-            <td><button onClick={() => removeProduct(product.id)}>X</button></td>
+            <td className='align-middle text-center'>{product.id}</td>
+            <td className='align-middle text-center'><img src={product.pictureurl} alt={product.title}  style={{ width: '100px' }}/></td>
+            <td className='align-middle text-center'>{product.title}</td>
+            <td className='align-middle text-center'>{product.quantity}</td>
+            <td className='align-middle text-center'>{product.price}</td>
+            <td className='align-middle text-center'>$ {product.quantity * product.price} <Button onClick={() => removeProduct(product.id)} variant="danger">X</Button></td>
         </>
     )
 }
