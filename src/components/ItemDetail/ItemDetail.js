@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import ItemCount from '../ItemCount/ItemCount';
 import { useCartContext } from "../../context/cartContext";
 import Card from 'react-bootstrap/Card';
+import Button from 'react-bootstrap/Button';
 import { Col, Row } from 'react-bootstrap';
 
 export const ItemDetail = ({ data }) => {
@@ -29,7 +30,7 @@ export const ItemDetail = ({ data }) => {
 							Precio: ${data.price}
 						</Card.Text>
 						{goToCart ? (
-							<Link to="/cart">Comprar</Link>
+							<Button  style={{ textDecoration: 'white' }} variant="success"><Link to="/cart">Comprar</Link></Button>
 						) : (
 							<ItemCount initial={1} stock={data.stock} onAdd={onAdd} />
 						)}

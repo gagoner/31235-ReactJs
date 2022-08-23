@@ -1,14 +1,5 @@
-import React from 'react'; // { useState }
+import React from 'react';
 import { useCartContext } from "../../context/cartContext";
-// import { useContext } from 'react';
-// import { Link } from 'react-router-dom';
-// import CartContext from '../../context/cartContext';
-// import Figure from 'react-bootstrap/Figure';
-// import Button from 'react-bootstrap/Button';
-// import Col from 'react-bootstrap/Col';
-// import Row from 'react-bootstrap/Row';
-// import Toast from 'react-bootstrap/Toast';
-// import ToastContainer from 'react-bootstrap/ToastContainer';
 
 const CartWidget = () => {
 	const { totalProducts } = useCartContext();
