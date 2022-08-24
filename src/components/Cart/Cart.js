@@ -102,7 +102,7 @@ const Cart = () =>{
 		</Table>
 		</Card>
 		{/* Ingresar formulario */}
-		<Formulary />
+		{/* <Formulary /> */}
 		</>
 		):(
 		<>
