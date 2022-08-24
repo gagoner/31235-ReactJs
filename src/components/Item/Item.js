@@ -17,7 +17,7 @@ const Item =({item})=>{
                     </Link>
                 </Card.Subtitle>
                 <Link to={`/detalle/${item.id}`} >
-                    <Card.Img variant="top" alt={`Imagen del Producto ${item.title}`} src={item.pictureurl} className="rounded"/>
+                    <Card.Img variant="top" alt={`Imagen del Producto ${item.title}`} src={`../.${item.pictureurl}`} className="rounded"/>
                 </Link>                
                 <Card.Text>Categoría: {item.category}</Card.Text>
             </Card.Body>

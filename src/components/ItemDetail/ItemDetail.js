@@ -25,7 +25,7 @@ export const ItemDetail = ({ data }) => {
 					<Col>
 						<Card.Title>{data.title}</Card.Title>
 							<Card.Subtitle className="mb-2 text-muted">Categoría: {data.category}   |   Stock: {data.stock}</Card.Subtitle>
-						<Card.Img variant="top" alt={`Imagen del Producto ${data.title}`} src={data.pictureurl} className="rounded" style={{ width: '80%' }}/>
+						<Card.Img variant="top" alt={`Imagen del Producto ${data.title}`} src={`../.${data.pictureurl}`} className="rounded" style={{ width: '80%' }}/>
 						<Card.Text>
 							Precio: ${data.price}
 						</Card.Text>
