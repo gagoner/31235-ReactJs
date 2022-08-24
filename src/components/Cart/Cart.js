@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import { Link, useNavigate  } from 'react-router-dom';
 import { useCartContext } from "../../context/cartContext";
 import ItemCart from "../ItemCart/ItemCart";
+import Formulary from "../Formulary/Formulary";
 import { getFirestore, addDoc, collection } from 'firebase/firestore';
 import Table from 'react-bootstrap/Table';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
 import Toast from 'react-bootstrap/Toast';
 import ToastContainer from 'react-bootstrap/ToastContainer';
 
@@ -23,15 +23,14 @@ const Cart = () =>{
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
 
-	const navigate = useNavigate();
-
+	const navigate = useNavigate();	
 
 	const order = {
 		buyer: {
-			name: "Pablo",
-			email: "Pablo@gmail.com",
-			phone: "123123",
-			address: "asdd",
+			name: "form.name",
+			email: "form.email",
+			phone: "form.phone",
+			address: "form.address",
 		},
 		items: cart.map((product) => ({
 			id: product.id,
@@ -102,16 +101,8 @@ const Cart = () =>{
 			</tbody>
 		</Table>
 		</Card>
-		<Modal show={show} onHide={handleClose} backdrop="static" keyboard={false} >
-			<Modal.Header closeButton>
-				<Modal.Title>¡Gracias por tu compra!</Modal.Title>
-			</Modal.Header>
-			<Modal.Body>Ingresa tus datos para proceder con la compra.</Modal.Body>
-			<Modal.Footer>
-				<Button variant="secondary" onClick={handleClose}>Cerrar</Button>
-				<Button variant="primary" onClick={() => { handleClose(); setLoading(false)}}>Enviar orden</Button>
-			</Modal.Footer>
-		</Modal>
+		{/* Ingresar formulario */}
+		<Formulary />
 		</>
 		):(
 		<>
