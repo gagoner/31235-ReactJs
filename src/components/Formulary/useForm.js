@@ -1,38 +1,34 @@
 import { useState, useContext } from "react";
 import { addDoc, getFirestore, collection } from "firebase/firestore";
-import cartContext from "../../context/cartContext";
+import CartContext from "../../context/cartContext";
 
-export const useForm = (initialForm) => {
-  const { cart, clearCart, totalPrecio, totalProductos } =
-    useContext(cartContext);
+export const useForm = (initialForm, validateForm) => {
+  const { cart, clearCart, totalPrice } =
+    useContext(CartContext);
   const [form, setForm] = useState(initialForm);
   const [errors, setErrors] = useState({});
 
   const order = {
-    buyer: {
-      name: form.name,
-      email: form.email,
-      phone: form.phone,
-      address: form.address,
-    },
-    items: cart.map((item) => ({
-      id: item.id,
-      nombre: item.nombre,
-      precio: item.precio,
-      cantidad: item.cantidad,
-    })),
-    suegras: totalProductos(),
-    total: totalPrecio(),
-  };
+		buyer: {
+			name: form.name,
+			email: form.email,
+			phone: form.phone,
+			address: form.address,
+		},
+		items: cart.map((product) => ({
+			id: product.id,
+			title: product.title,
+			price: product.price,
+			quantity: product.quantity,
+		})),
+		total: totalPrice(),
+	};
 
-  // const modalBasico = (id) => {
-  //   Swal.fire({
-  //     title: "Gracias por elegir Dulce Suegra!",
-  //     text: `Su Orden: (${id}) ha sido realizada con éxito!`,
-  //     icon: "success",
-  //     confirmButtonText: "OK",
-  //   });
-  // };
+  const modalBasico = (id) => {
+    <>
+    <p>Hola modal activado.</p>
+    </>
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -62,7 +58,7 @@ export const useForm = (initialForm) => {
     const db = getFirestore();
     const ordersCollection = collection(db, "orders");
     addDoc(ordersCollection, order).then(({ id }) => {
-      // modalBasico(id);
+      modalBasico(id);
     });
   }
 
