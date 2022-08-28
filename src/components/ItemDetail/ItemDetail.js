@@ -30,7 +30,11 @@ export const ItemDetail = ({ data }) => {
 							Precio: ${data.price}
 						</Card.Text>
 						{goToCart ? (
-							<Button variant="success"><Link to="/cart"><span style={{ textDecoration: 'none' }}>Comprar</span></Link></Button>
+							<Button variant="info">
+								<Link to="/cart">
+									Comprar
+								</Link>
+							</Button>
 						) : (
 							<ItemCount initial={1} stock={data.stock} onAdd={onAdd} />
 						)}

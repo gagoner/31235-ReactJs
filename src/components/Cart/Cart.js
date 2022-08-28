@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Link, useNavigate  } from 'react-router-dom';
 import { useCartContext } from "../../context/cartContext";
 import ItemCart from "../ItemCart/ItemCart";
-import Formulary from "../Formulary/Formulary";
 import { getFirestore, addDoc, collection } from 'firebase/firestore';
 import Table from 'react-bootstrap/Table';
 import Card from 'react-bootstrap/Card';
@@ -16,14 +15,14 @@ const Cart = () =>{
 
     const [loading, setLoading] = useState(true);
 
-	const { cart, totalPrice, clearCart } = useCartContext();
+	const { cart, totalPrice } = useCartContext();
 
 	const [show, setShow] = useState(false);
 
-	const handleClose = () => setShow(false);
+	// const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
 
-	const navigate = useNavigate();	
+	const navigate = useNavigate();
 
 	const order = {
 		buyer: {
@@ -51,11 +50,15 @@ const Cart = () =>{
 	if (cart.length === 0) {
 		return (
 			<>
-			<Card style={{ width: '80%' }} className="mx-auto mt-2" >
-				<Card.Title>No hay elementos en el carrito</Card.Title>
-				<Card.Text>
+			<Card className="m-5 p-3" >
+				<Card.Title className="text-center">
+					No hay elementos en el carrito
+				</Card.Title>
+				<Card.Text className="mt-2 text-center">
 					<Link to="/">
-						<Button variant="secondary" >Continuar comprando</Button>
+						<Button variant="secondary" >
+							Continuar comprando
+						</Button>
 					</Link>
 				</Card.Text>
 			</Card>
@@ -63,62 +66,80 @@ const Cart = () =>{
 		);
 	}
 
-
-
 	return (
 		<>
 		{loading ? (
-			<>
-		<Card style={{ width: '80%' }} className="mx-auto mt-2" >
-		<Table striped bordered hover>
-			<thead>
-				<tr>
-					<th className="text-center">#</th>
-					<th colSpan={2} className="text-center">Producto</th>
-					<th className="text-center">Cantidad</th>
-					<th className="text-center">Precio unitario</th>
-					<th className="text-center">Subtotal</th>
-				</tr>
-			</thead>
-            <tbody>
-				{cart.map((product) => (
-					<tr className="text-center" key={"tr" + product.id}><ItemCart key={product.id} product={product} /></tr>					
-				))}
-				<tr>
-					<td colSpan={5} className="text-end">Total:</td>
-					<td className="text-center" >$ {totalPrice()}</td>
-				</tr>
-				<tr>
-					<td colSpan={6} className="text-end">
-						<Button className="mx-2" onClick={clearCart}>
-						Borrar todo
-						</Button>
-						<Button className="mx-2" onClick={() => { handleShow(true); handleClick();}}>
-							Finalizar compra
-						</Button>
-					</td>
-				</tr>
-			</tbody>
-		</Table>
-		</Card>
-		{/* Ingresar formulario */}
-		{/* <Formulary /> */}
-		</>
+				<>
+				<Card style={{ width: '80%' }} className="mx-auto mt-2" >
+					<Table striped bordered hover>
+						<thead>
+							<tr>
+								<th className="text-center">#</th>
+								<th colSpan={2} className="text-center">Producto</th>
+								<th className="text-center">Cantidad</th>
+								<th className="text-center">Precio unitario</th>
+								<th className="text-center">Subtotal</th>
+							</tr>
+						</thead>
+						<tbody>
+							{cart.map((product) => (
+								<tr className="text-center" key={"tr" + product.id}>
+									<ItemCart key={product.id} product={product} />
+								</tr>					
+							))}
+							<tr>
+								<td colSpan={5} className="text-end">Total:</td>
+								<td className="text-center" >$ {totalPrice()}</td>
+							</tr>
+							<tr>
+								<td colSpan={6} className="text-end">
+									<Link to="/checkout">
+										<Button onClick={() => { handleShow(true); handleClick();}}>
+											Finalizar compra
+										</Button>
+									</Link>
+								</td>
+							</tr>
+						</tbody>
+					</Table>
+				</Card>
+				{/* <Modal show={show} onHide={handleClose} backdrop="static" keyboard={false} >
+					<Modal.Header closeButton>
+					<Modal.Title>
+						Modal title
+					</Modal.Title>
+				</Modal.Header>
+				<Modal.Body>
+					<Formulary />
+				</Modal.Body>
+				<Modal.Footer>
+					<Button variant="secondary" onClick={handleClose}>
+						Cerrar
+					</Button>
+					<Button variant="primary" onClick={() => { handleClose(); setLoading(false)}}>
+						Enviar orden
+					</Button>
+				</Modal.Footer>
+			</Modal> */}
+			</>
 		):(
-		<>
-		<ToastContainer className="p-3" position="middle-center">
-			<Toast onClose={() => {setShowA(false); navigate('/'); clearCart()}} show={showA}>
-				<Toast.Header>
-					<strong className="me-auto">¡Felicitaciones! Tu compra está confirmada</strong>
-					<small>N° de Orden: {localStorage.getItem("orderId")}</small>
-				</Toast.Header>
-				<Toast.Body>
-					Ya adquiriste tu producto. Pronto te llegará un correo con los datos de tu compra.
-				</Toast.Body>				
-				<Link className="float-end" to="/"><Button variant="secondary" onClick={clearCart} >Cerrar</Button></Link>
-			</Toast>
-		</ToastContainer>
-		</>
+			<>
+			<ToastContainer className="p-3" position="middle-center">
+				<Toast onClose={() => {setShowA(false); navigate('/')}} show={showA} delay={10000} autohide>
+					<Toast.Header>
+						<strong className="me-auto">
+							¡Felicitaciones! Tu compra está confirmada
+						</strong>
+						<small>
+							N° de Orden: {localStorage.getItem("orderId")}
+						</small>
+					</Toast.Header>
+					<Toast.Body>
+						Gracias por tu compra. Pronto te llegará un correo con los datos de tu compra.
+					</Toast.Body>
+				</Toast>
+			</ToastContainer>
+			</>
 		)
 	}
 		</>

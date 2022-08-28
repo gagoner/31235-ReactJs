@@ -2,7 +2,7 @@ import { useState, useContext } from "react";
 import { addDoc, getFirestore, collection } from "firebase/firestore";
 import cartContext from "../../context/cartContext";
 
-export const useForm = (initialForm, validateForm) => {
+export const useForm = (initialForm) => {
   const { cart, clearCart, totalPrecio, totalProductos } =
     useContext(cartContext);
   const [form, setForm] = useState(initialForm);
