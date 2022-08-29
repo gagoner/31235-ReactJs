@@ -22,7 +22,7 @@ const CartProvider = ({ children }) => {
 	};
 
 	const totalPrice = () => {
-		return cart.reduce((prev, act) => prev + act.quantity * act.price, 0);
+		return cart.reduce((prev, act) => prev + act.quantity * act.price, 0).toLocaleString('es-CL', {style: 'currency',currency: 'CLP', minimumFractionDigits: 0});
 	};
 
 	const totalProducts = () =>

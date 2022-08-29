@@ -2,8 +2,11 @@ import React from "react";
 import { Link } from 'react-router-dom';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import { useCartContext } from "../../context/cartContext";
 
 const Formulary = () => {
+
+	const { totalPrice, clearCart } = useCartContext();
 
     return (
         <>
@@ -27,15 +30,15 @@ const Formulary = () => {
                     Dirección
                 </Form.Label>
                 <Form.Control type="text" name="address" placeholder="Calle Número, Comuna, Ciudad, Región" required />
-                <p>Gracias por su compra</p>
+                <h4 className="my-3">¡Gracias por su compra!</h4>
                 <Link to="/cart" >
                     <Button className="text-center me-2" variant="secondary" >
                         Cerrar
                     </Button>
                 </Link>
                 <Link to="/" >
-                    <Button className="text-center ms-2" variant="primary" type="submit" >
-                        Enviar orden
+                    <Button className="text-center ms-2" variant="primary" type="submit" onClick={clearCart}>
+                        Enviar orden por {totalPrice()}
                     </Button>
                 </Link>
             </Form>

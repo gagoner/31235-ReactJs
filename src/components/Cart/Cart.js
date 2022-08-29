@@ -8,7 +8,7 @@ import Button from 'react-bootstrap/Button';
 
 const Cart = () =>{
 
-	const { cart, totalPrice } = useCartContext();
+	const { cart, totalPrice, clearCart } = useCartContext();
 
 	if (cart.length === 0) {
 		return (
@@ -50,10 +50,15 @@ const Cart = () =>{
 							))}
 							<tr>
 								<td colSpan={5} className="text-end">Total:</td>
-								<td className="text-center" >$ {totalPrice()}</td>
+								<td className="text-center" >{totalPrice()}</td>
 							</tr>
 							<tr>
 								<td colSpan={6} className="text-end">
+								<Link to="/">
+										<Button className="mx-3" variant="danger" onClick={clearCart} >
+											Vaciar carrito
+										</Button>
+									</Link>
 									<Link to="/checkout">
 										<Button >
 											Finalizar compra
